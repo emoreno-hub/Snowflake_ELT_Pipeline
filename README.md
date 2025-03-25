@@ -15,18 +15,18 @@ This portfolio project demonstrates an end-to-end ELT data pipeline designed to 
 
 ## ELT Workflow
 1. Extract:
-Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
+    - Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
 
 2. Load:
--- Yelp data uploaded to AWS S3 and ingested into Snowflake via an external stage.
--- Weather data loaded directly via internal Snowflake stage using SQL.
+    - Yelp data uploaded to AWS S3 and ingested into Snowflake via an external stage.
+    - Weather data loaded directly via internal Snowflake stage using SQL.
 
-3. Transform:
-- Data loaded into staging tables, then modeled into an operational data store (ODS).
-- Final business logic applied in the data warehouse (DWH) layer through SQL joins and preparation for reporting.
+4. Transform:
+    - Data loaded into staging tables, then modeled into an operational data store (ODS).
+    - Final business logic applied in the data warehouse (DWH) layer through SQL joins and preparation for reporting.
 
 4. Visualize:
-- Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
+    - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
 
 ### Prerequisites
 - Snowflake account - requires role, database, warehouse, and schema permissions
