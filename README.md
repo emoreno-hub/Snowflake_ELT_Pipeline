@@ -20,10 +20,10 @@ This project follows a dimensional modeling approach using a Star Schema in the 
     - **DWH Layer:** Analytics-ready dimensional tables modeled using a star schema
 
 ### Entity Relationship Diagram (ERD)
-![ERD](./diagrams/ER_diagram.png)
+![ERD](./diagrams/ER_diagram.PNG)
 
 ### Star Schema
-![Star Schema](./diagrams/STAR_schema.png)
+![Star Schema](./diagrams/STAR_schema.PNG)
 
 https://github.com/emoreno-hub/Snowflake_ELT_Pipeline/blob/main/diagrams/ER_diagram.PNG
 
