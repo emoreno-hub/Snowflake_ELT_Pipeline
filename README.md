@@ -13,6 +13,24 @@ This portfolio project demonstrates an end-to-end ELT data pipeline designed to 
 - **SnowSQL CLI** – For uploading local files to internal Snowflake stages
 - **SQL** – Used for all data loading and transformation logic
 
+
+## ELT Workflow
+This project implements a modern ELT (Extract, Load, Transform) approach that feeds directly into the dimensional star schema used in the Data Warehouse layer.
+1. Extract:
+    - Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
+
+2. Load:
+    - Yelp data is uploaded to AWS S3 and ingested into Snowflake via an external stage using a JSON file format.
+    - Weather data is loaded directly into Snowflake through an internal stage using the SnowSQL CLI.
+
+4. Transform:
+    - Raw data is first loaded into the Staging Layer, where basic structure and format validation occur.
+    - Data is then processed into the Operational Data Store (ODS) — a clean, business-friendly representation of the data.
+    - Finally, core business logic and aggregations are applied to produce analytics-ready fact and dimension tables in the Data Warehouse (DWH), modeled using a Star Schema (see below).
+
+4. Visualize:
+    - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
+
 ## Data Modeling & Schema Design
 This project follows a dimensional modeling approach using a Star Schema in the Data Warehouse (DWH) layer.
     - **Staging Layer:** Raw Yelp and weather data ingested into staging tables
@@ -25,22 +43,6 @@ This project follows a dimensional modeling approach using a Star Schema in the 
 ### Star Schema
 ![Star Schema](./diagrams/STAR_schema.PNG)
 
-https://github.com/emoreno-hub/Snowflake_ELT_Pipeline/blob/main/diagrams/ER_diagram.PNG
-
-## ELT Workflow
-1. Extract:
-    - Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
-
-2. Load:
-    - Yelp data uploaded to AWS S3 and ingested into Snowflake via an external stage.
-    - Weather data loaded directly via internal Snowflake stage using SQL.
-
-4. Transform:
-    - Data loaded into staging tables, then modeled into an operational data store (ODS).
-    - Final business logic applied in the data warehouse (DWH) layer through SQL joins and preparation for reporting.
-
-4. Visualize:
-    - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
 
 ## Data Sources
 This project uses publicly available datasets:
