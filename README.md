@@ -31,11 +31,32 @@ This project implements a modern ELT (Extract, Load, Transform) approach that fe
 4. Visualize:
     - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
 
+## Project Structure
+The project is organized into defined layers to reflect the ELT pipeline:
+```bash
+sql/
+├── 1_setup/
+│   └── create_database_and_schemas.sql
+├── 2_staging/
+│   ├── create_staging_tables.sql
+│   ├── load_yelp_json_from_external_stage.sql
+│   ├── load_weather_csv_from_internal_stage.sql
+├── 3_ods/
+│   ├── create_ods_tables.sql
+│   └── load_ods_tables.sql
+├── 4_dwh/
+│   ├── create_dwh_tables.sql
+│   └── load_dwh_tables.sql
+├── 5_analysis/
+│   └── yelp_weather_analysis.sql
+```
+
 ## Data Modeling & Schema Design
 This project follows a dimensional modeling approach using a Star Schema in the Data Warehouse (DWH) layer.
     - **Staging Layer:** Raw Yelp and weather data ingested into staging tables
     - **ODS Layer:** Cleaned and structured intermediary tables for processing
     - **DWH Layer:** Analytics-ready dimensional tables modeled using a star schema
+
 
 ### Entity Relationship Diagram (ERD)
 ![ERD](./diagrams/ER_diagram.PNG)
