@@ -18,8 +18,8 @@ This portfolio project demonstrates an end-to-end ELT data pipeline designed to 
 Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
 
 2. Load:
-- Yelp data uploaded to AWS S3 and ingested into Snowflake via an external stage.
-- Weather data loaded directly via internal Snowflake stage using SQL.
+-- Yelp data uploaded to AWS S3 and ingested into Snowflake via an external stage.
+-- Weather data loaded directly via internal Snowflake stage using SQL.
 
 3. Transform:
 - Data loaded into staging tables, then modeled into an operational data store (ODS).
