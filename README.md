@@ -109,19 +109,48 @@ Note: s3_int refers to a Snowflake storage integration that must be preconfigure
 
 ### Step 3: Create Internal Stage for Weather CSV Files
 ```bash
+CREATE OR REPLACE STAGE my_csv_stage;
+```
+This internal stage stores local weather CSV files uploaded via the SnowSQL CLI.
+
+### Step 4: Upload & Load Weather Data Using SnowSQL
+1. Upload files to the internal stage
+```bash
 put file:///path/to/usw00023169-las-vegas-mccarran-intl-ap-precipitation-inch.csv @my_csv_stage auto_compress=true;
 
 put file:///path/to/usw00023169-temperature-degreef.csv @my_csv_stage auto_compress=true;
 ```
-This command uploads the local CSV file directly to Snowflake’s internal stage.  Veriy upload:
+
+2. Create a CSV file format
 ```bash
-snowsql -c my_project -q "LIST @my_csv_stage;"
+CREATE OR REPLACE FILE FORMAT csv_fileformat
+    TYPE = 'CSV'
+    FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+    SKIP_HEADER = 1;
 ```
 
-4. Run SQL Scripts in Order
-You can execute the following in Snowflake Web UI or via SnowSQL:
+```bash
+COPY INTO precipitation
+FROM @my_csv_stage/usw00023169-las-vegas-mccarran-intl-ap-precipitation-inch.csv.gz
+FILE_FORMAT = csv_fileformat
+ON_ERROR = 'CONTINUE'
+PURGE = TRUE;
 
+COPY INTO temperature
+FROM @my_csv_stage/usw00023169-temperature-degreef.csv.gz
+FILE_FORMAT = csv_fileformat
+ON_ERROR = 'CONTINUE'
+PURGE = TRUE;
+```
 
-## Data Modeling & Schema Design
+### Step 5: Run SQL Scripts to Setup and Build the Data Warehouse
+Execute the SQL scripts in the following order:
+1. sql/Database_Setup.sql
+2. sql/Load_JSON_Data_From_S3.sql
+3. sql/Load_CSV_Files_Using_SnowSQL.sql
+4. sql/Staging_to_ODS
+5. sql/ODS_to_DWH.sql
+6. sql/Yelp_weather_analysis.sql
 
-
+## Author
+**Eric Moreno**
