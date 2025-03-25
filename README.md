@@ -1,4 +1,4 @@
-# Snowflake_ELT_Pipeline
+# Yelp & Weather ELT Pipeline Using Snowflake
 End-to-end ELT data pipeline that ingests Yelp and weather data, stages it in Snowflake, and prepares it for analytics
 
 ## Overview
@@ -8,10 +8,10 @@ This portfolio project demonstrates an end-to-end ELT data pipeline designed to 
 
 
 ## Tools & Technologies
-- **Snowflake** – Cloud data warehouse for storage, transformation, and analytics
-- **AWS S3** – External stage for raw data ingestion
+- **Snowflake** – Cloud data warehouse for data modeling and analytics
+- **AWS S3** – External stage for raw JSON data ingestion
+- **SnowSQL CLI** – For uploading local files to internal Snowflake stages
 - **SQL** – Used for all data loading and transformation logic
-- Python (optional) – Can be used for data prep or automation
 
 ## ELT Workflow
 1. Extract:
@@ -28,26 +28,32 @@ Yelp data (.json.gz) and weather data (.csv) sourced from local machine.
 4. Visualize:
 - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
 
-## Project Structure
-
-
-project-root/
-│
-├── config/                # Snowflake connection settings
-├── data/                  # Local raw datasets (Yelp, Weather)
-├── extract/               # Scripts for uploading files to S3 or Snowflake stages
-├── transform/             # SQL scripts to populate staging, ODS, and DWH
-├── load/                  # Scripts to trigger stage-to-table loads
-├── sql/                   # DDL and transformation logic
-├── powerbi/               # PBIX files and screenshots of dashboards
-└── README.md
-
-## How to Run
 ### Prerequisites
 - Snowflake account - requires role, database, warehouse, and schema permissions
 - SnowSQL CLI - used to upload local files to internal Snowflake stage
 - AWS S3 bucket- used to load files to external Snowflake stage
 
+### SnowSQL CLI Configuration
+Create a [SnowSQL](https://docs.snowflake.com/en/user-guide/snowsql) connection profile:
+```bash
+# ~/.snowsql/config
+
+[connections.my_project]
+accountname = <your_account>.snowflakecomputing.com
+username = <your_username>
+password = <your_password>
+dbname = <your_database>
+schemaname = <your_schema>
+warehousename = <your_warehouse>
+rolename = <your_role>
+```
+Connect using:
+```bash
+snowsql -c my_project
+```
+
+
+## How to Run
 ### Step 1: Upload Yelp Data to AWS S3
 
 ```bash
@@ -65,7 +71,7 @@ CREATE OR REPLACE FILE FORMAT YELP.STAGING.json_fileformat
 
 -- Step 2: Create external stage linked to S3 bucket
 CREATE OR REPLACE STAGE external_json_stage
-    URL = 's3://yelp-weather-project'
+    URL = 's3://bucket-name'
     STORAGE_INTEGRATION = s3_int
     FILE_FORMAT = json_fileformat;
 ```
@@ -73,11 +79,14 @@ Note: s3_int refers to a Snowflake storage integration that must be preconfigure
 
 ### Step 3: Create Internal Stage for Weather CSV Files
 ```bash
-put file:///path/usw00023169-las-vegas-mccarran-intl-ap-precipitation-inch.csv @my_csv_stage auto_compress=true;
+put file:///path/to/usw00023169-las-vegas-mccarran-intl-ap-precipitation-inch.csv @my_csv_stage auto_compress=true;
 
-put file:///path/usw00023169-temperature-degreef.csv @my_csv_stage auto_compress=true;
+put file:///path/to/usw00023169-temperature-degreef.csv @my_csv_stage auto_compress=true;
 ```
-This command uploads the local CSV file directly to Snowflake’s internal stage.
+This command uploads the local CSV file directly to Snowflake’s internal stage.  Veriy upload:
+```bash
+snowsql -c my_project -q "LIST @my_csv_stage;"
+```
 
 4. Run SQL Scripts in Order
 You can execute the following in Snowflake Web UI or via SnowSQL:
