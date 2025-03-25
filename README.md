@@ -75,12 +75,12 @@ This project uses publicly available datasets:
     - Download from: [https://crt-climate-explorer.nemac.org/](https://crt-climate-explorer.nemac.org/)
     - Contains historical and projected climate variables (e.g., temperature, precipitation).
 
-### Prerequisites
+## Prerequisites
 - Snowflake account - requires role, database, warehouse, and schema permissions
 - SnowSQL CLI - used to upload local files to internal Snowflake stage
 - AWS S3 bucket- used to load files to external Snowflake stage
 
-### SnowSQL CLI Configuration
+#### SnowSQL CLI Configuration
 Create a [SnowSQL](https://docs.snowflake.com/en/user-guide/snowsql) connection profile:
 ```bash
 # ~/.snowsql/config
