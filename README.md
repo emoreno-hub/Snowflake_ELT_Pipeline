@@ -80,7 +80,7 @@ This project uses publicly available datasets:
 - SnowSQL CLI - used to upload local files to internal Snowflake stage
 - AWS S3 bucket- used to load files to external Snowflake stage
 
-#### SnowSQL CLI Configuration
+### SnowSQL CLI Configuration
 Create a [SnowSQL](https://docs.snowflake.com/en/user-guide/snowsql) connection profile:
 ```bash
 # ~/.snowsql/config
