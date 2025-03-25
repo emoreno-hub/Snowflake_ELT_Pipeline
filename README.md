@@ -5,7 +5,7 @@ End-to-end ELT data pipeline that ingests Yelp and weather data, stages it in Sn
 This portfolio project demonstrates an end-to-end ELT data pipeline designed to integrate and analyze Yelp and weather datasets. It simulates a real-world cloud-based architecture using AWS S3, Snowflake, and Power BI, following industry-standard data modeling practices across staging, operational, and analytics layers.  In this project I use Yelp and climate datasets for Las Vegas, Nevada to build a data warehouse that enables analysis of how weather impacts local business reviews.
 
 ## Architecture
-
+![](https://github.com/emoreno-hub/Snowflake_ELT_Pipeline/blob/main/diagrams/ER_diagram.PNG)
 
 ## Tools & Technologies
 - **Snowflake** – Cloud data warehouse for data modeling and analytics
