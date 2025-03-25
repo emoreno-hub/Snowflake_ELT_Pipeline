@@ -2,7 +2,7 @@
 End-to-end ELT data pipeline that ingests Yelp and weather data, stages it in Snowflake, and prepares it for analytics
 
 ## Overview
-This portfolio project demonstrates an end-to-end ELT data pipeline designed to integrate and analyze Yelp and weather datasets. It simulates a real-world cloud-based architecture using AWS S3, Snowflake, and Power BI, following industry-standard data modeling practices across staging, operational, and analytics layers.
+This portfolio project demonstrates an end-to-end ELT data pipeline designed to integrate and analyze Yelp and weather datasets. It simulates a real-world cloud-based architecture using AWS S3, Snowflake, and Power BI, following industry-standard data modeling practices across staging, operational, and analytics layers.  In this project I use Yelp and climate datasets for Las Vegas, Nevada to build a data warehouse that enables analysis of how weather impacts local business reviews.
 
 ## Architecture
 
@@ -27,6 +27,16 @@ This portfolio project demonstrates an end-to-end ELT data pipeline designed to 
 
 4. Visualize:
     - Power BI connects to the DWH layer to visualize business insights (e.g., impact of weather/COVID on Yelp businesses).
+
+## Data Sources
+This project uses publicly available datasets:
+- Yelp Open Dataset
+    - Download from: [https://business.yelp.com/data/resources/open-dataset/](https://business.yelp.com/data/resources/open-dataset/)
+     - Includes business metadata and user reviews related to local businesses.
+
+- Climate Resilience Toolkit – Climate Explorer
+    - Download from: [https://crt-climate-explorer.nemac.org/](https://crt-climate-explorer.nemac.org/)
+    - Contains historical and projected climate variables (e.g., temperature, precipitation).
 
 ### Prerequisites
 - Snowflake account - requires role, database, warehouse, and schema permissions
@@ -54,11 +64,15 @@ snowsql -c my_project
 
 
 ## How to Run
-### Step 1: Upload Yelp Data to AWS S3
+### Step 1: Download and Upload Yelp Data to AWS S3
+1. Download the Yelp dataset
+2. Dataset will contain JSON files for business, checkin, covid_features, reviews, tips, and users
+3. Upload to your S3 bucket:
 
 ```bash
 aws s3 cp ./data/yelp/ s3://your-bucket-name/yelp/ --recursive
 ```
+The S3 bucket serves as the external stage for Snowflake to ingest Yelp data via JSON format.
 
 ### Step 2: Create External Stage in Snowflake (for Yelp JSON files)
 In Snowflake, run the following SQL to set up a JSON file format and the external stage:
