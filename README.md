@@ -145,12 +145,12 @@ PURGE = TRUE;
 
 ### Step 5: Run SQL Scripts to Setup and Build the Data Warehouse
 Execute the SQL scripts in the following order:
-1. sql/Database_Setup.sql
-2. sql/Load_JSON_Data_From_S3.sql
-3. sql/Load_CSV_Files_Using_SnowSQL.sql
-4. sql/Staging_to_ODS
-5. sql/ODS_to_DWH.sql
-6. sql/Yelp_weather_analysis.sql
+1. `sql/Database_Setup.sql`
+2. `sql/Load_JSON_Data_From_S3.sql`
+3. `sql/Load_CSV_Files_Using_SnowSQL.sql`
+4. `sql/Staging_to_ODS`
+5. `sql/ODS_to_DWH.sql`
+6. `sql/Yelp_weather_analysis.sql`
 
 ## Author
 **Eric Moreno**
