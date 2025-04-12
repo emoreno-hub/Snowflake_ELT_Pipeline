@@ -53,9 +53,9 @@ sql/
 
 ## Data Modeling & Schema Design
 This project follows a dimensional modeling approach using a Star Schema in the Data Warehouse (DWH) layer.
-    - **Staging Layer:** Raw Yelp and weather data ingested into staging tables
-    - **ODS Layer:** Cleaned and structured intermediary tables for processing
-    - **DWH Layer:** Analytics-ready dimensional tables modeled using a star schema
+- **Staging Layer:** Raw Yelp and weather data ingested into staging tables
+- **ODS Layer:** Cleaned and structured intermediary tables for processing
+- **DWH Layer:** Analytics-ready dimensional tables modeled using a star schema
 
 
 ### Entity Relationship Diagram (ERD)
